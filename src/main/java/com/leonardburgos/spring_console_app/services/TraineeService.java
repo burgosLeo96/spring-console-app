@@ -12,6 +12,10 @@ public class TraineeService {
     private final UserRepository userRepository;
 
     public void addTrainee(String username, String name, String lastName) {
+        if(username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null");
+        }
+
         Trainee trainee = new Trainee(username, name, lastName);
         this.userRepository.addUser(username, trainee);
     }

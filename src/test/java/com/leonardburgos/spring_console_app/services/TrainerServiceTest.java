@@ -31,7 +31,7 @@ public class TrainerServiceTest {
     }
 
     @Test
-    public void testAddUser() {
+    public void testAddTrainer() {
         // given
         String username = "trainer1";
         String name = "Leonard";
@@ -40,11 +40,27 @@ public class TrainerServiceTest {
         Trainer createdTrainer = new Trainer(username, name, lastName);
 
         // when
-        Mockito.when(userRepository.addUser(Mockito.anyString(), Mockito.any())).thenReturn(createdTrainer );
+        Mockito.when(userRepository.addUser(Mockito.anyString(), Mockito.any())).thenReturn(createdTrainer);
 
         this.trainerService.addTrainer(username, name, lastName);
 
         // then
         Mockito.verify(userRepository).addUser(Mockito.anyString(), Mockito.any());
+    }
+
+    @Test
+    public void testGetTrainer() {
+        // Given
+        String username = "trainer1";
+        Trainer trainer1 = new Trainer(username, "Leonard", "Burgos");
+
+        // Mocks
+        Mockito.when(userRepository.getUser(username)).thenReturn(trainer1);
+
+        // When
+        Trainer trainer = this.trainerService.getTrainer(username);
+
+        // Then
+        Assertions.assertEquals(trainer1, trainer);
     }
 }
